@@ -181,9 +181,10 @@ inline RouteLeg assembleLeg(const datafacade::BaseDataFacade &facade,
                                   summary_array.end(),
                                   facade.GetNameForID(summary_array.front()),
                                   [&facade](std::string previous, const std::uint32_t name_id) {
-                                      if (name_id != 0)
+                                      auto next_name = facade.GetNameForID(name_id);
+                                      if (name_id != 0 && !next_name.empty())
                                       {
-                                          previous += ", " + facade.GetNameForID(name_id);
+                                          previous += ", " + next_name;
                                       }
                                       return previous;
                                   });
